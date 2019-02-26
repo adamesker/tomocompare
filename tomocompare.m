@@ -56,6 +56,7 @@ for i=1:length(files) %loops through each data set
             depthPerc(j,i) = prctile(negvalues,perc);
             negValsData{i,j} = negvalues;
         end
+        
     end
 end
 

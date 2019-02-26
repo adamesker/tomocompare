@@ -51,10 +51,34 @@ for i in range(1,n1+1):
             xy[cnt][1] = i
             cnt = cnt + 1
 cord = np.column_stack((xy[:,0],xy[:,1],tomodata[0][:,3],tomodata[0][:,4],np.round(tomodata[0][:,6])))
-#np.set_printoptions(threshold=np.nan)
+np.set_printoptions(threshold=np.nan)
 #print(cord)
 #print(cord.shape)
-
+tmpvalues = []
+depthPerc = np.empty(shape=[n3,len(varNames)])
+posvalues = []
 #determines the percentile for each data set at each depth
-for i in range(0,len(allFiles)+1): #loops through each tomo model
-    for j in range(0,n3+1): #loops through each depth point
+for i in range(0,len(allFiles)): #loops through each tomo model
+    for j in range(0,n3): #loops through each depth point
+        tmpvalues = tomodata[i][j:-1:n3,7]#gets rel vel at each depth
+        if sign == 1:
+            for k in tmpvalues:
+                if k > 0 and k != 1e7 and k != -1e7:
+                    posvalues.append(k)
+            if len(posvalues) != 0:
+                depthPerc[j][i] = np.percentile(posvalues,perc)
+            else:
+                depthPerc[j][i] = 0
+            posvalues = []
+#very elegent solution to repeat depth like in imported tomo data.
+#easier to process data set. noticed small rounding error compared to matlabs
+#output but unlikey to affect final result
+depthPercCat = np.transpose(np.tile(np.transpose(depthPerc),n1*n2))
+posData = np.zeros((n1*n2*n3,len(allFiles)))
+#determines 0 or 1 if new array meets percentile threshold
+for i in range(0,len(allFiles)):
+    tmp = tomodata[i][:,7]
+    if sign==1:
+        for j in range(0,len(tmp)):
+            if tmp[j] >= depthPercCat[j,i] and tmp[j] != 1e7:
+                posData[j,i] = 1
