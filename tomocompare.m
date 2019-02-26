@@ -87,20 +87,20 @@ if figs == 1
     figure;
     colormap('jet');
     %combined plot
-    subplot(numfiles+1,1,1);
+   % subplot(numfiles+1,1,1);
     scatter(selCord(:,4),selCord(:,5),[],selCord(:,6),'filled');
     set(gca, 'YDir', 'reverse','Color','k');
     axis tight;
     title('combined plot');
 
     %plots each model
-    for i=2:numfiles+1
-        subplot(numfiles+1,1,i);
-        scatter(selCord(:,4),selCord(:,5),[],selCord(:,i+5),'filled');
-        set(gca, 'YDir', 'reverse','Color','k');
-        axis tight;
-        title(files(i-1).name);
-    end
+%     for i=2:numfiles+1
+%         subplot(numfiles+1,1,i);
+%         scatter(selCord(:,4),selCord(:,5),[],selCord(:,i+5),'filled');
+%         set(gca, 'YDir', 'reverse','Color','k');
+%         axis tight;
+%         title(files(i-1).name);
+%     end
 
     %get(gcf);
     %set(gcf,'Position',[-1196 -717 1195 1822]);
