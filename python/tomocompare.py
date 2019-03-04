@@ -93,8 +93,20 @@ model = np.concatenate((cord,modelSum,posData),1)
 
 #gets selected "latitude curve"
 selCoord = model[model[:,0] == latCurve]
-print(selCoord)
 #plotting
-plt.scatter(selCoord[:,3],selCoord[:,4],selCoord[:,5])
-plt.gca().invert_yaxis()
-plt.savefig('foo.png')
+#fig = plt.figure()
+print("here")
+x = np.linspace(min(selCoord[:,3]),max(selCoord[:,3]))
+X,Y = np.meshgrid(selCoord[:,3],selCoord[:,4])
+
+
+#fig1, ax2 = plt.subplots(constrained_layout=True)
+
+
+#ax = fig.add_subplot(111)
+#plt.scatter(selCoord[:,3],selCoord[:,4],c=selCoord[:,5],cmap='jet')
+#plt.gca().invert_yaxis()
+#plt.xlabel('Longitude')
+#plt.ylabel('Depth(km)')
+#savefig('foo.png')
+#plt.show()
