@@ -24,7 +24,7 @@ perc = 30
 #flag to see pos or neg velocity comparison pos=1 neg=0
 sign = 1
 #path for files to load
-path = r'../'
+path = r'models/'
 
 #loads all files in a list
 allFiles = glob.glob(path + waveName)
